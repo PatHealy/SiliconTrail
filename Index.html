@@ -1,30 +1,30 @@
 <html>
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- Prefix CSS enabler JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-        <!-- Jquery UI -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-        <!-- Jquery touch fix for touchscreen devices -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-        <!-- Animate CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-        <!-- Font Awesome icons CSS -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-        <!-- Toastr -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-        <!-- Include the Polyfill -->
-        <script src="https://www.javapoly.com/javapoly.js"></script>
-        <!-- Write your Java code -->
-        <script type="text/java">
-            package com.demo;
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Prefix CSS enabler JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <!-- Jquery UI -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <!-- Jquery touch fix for touchscreen devices -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+    <!-- Font Awesome icons CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <!-- Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- Include the Polyfill -->
+    <script src="https://www.javapoly.com/javapoly.js"></script>
+    <!-- Write your Java code -->
+    <script type="text/java">
+        package com.demo;
             import com.javapoly.dom.Window;
 
             public class Greeter
@@ -35,55 +35,137 @@
                 }
             }
         </script>
-        <style>
-            .invisibleElement {
+    <style>
+        .invisibleElement {
                 display: none!important;
             }
             .visibleElement{
                 display:block;
             }
         </style>
-        <!-- Invoke your Java code from Javascript -->
-        <script type="text/javascript">
-            //com.demo.Greeter.sayHello("world");
-            
-            var visibleIndex = 1;
-            function nextPanel(){
-                var str = "#row" + visibleIndex;
-                //alert(str);
-                $(str).removeClass("invisibleElement").addClass('animated fadeIn visibleElement');
-                visibleIndex++;
+    <!-- Invoke your Java code from Javascript -->
+    <script type="text/javascript">
+        //com.demo.Greeter.sayHello("world");
+        var eventCount = 10.0;
+        var completedCount = 0.0;
+
+        var visibleIndex = 1;
+
+        function nextPanel() {
+            var str = "#row" + visibleIndex;
+            //alert(str);
+            if($(str).attr("driving")){
+                completedCount += 1.0;
             }
-        </script>
-    </head>
-    <body>
-        <div class="container top-padding-md">
-            <div class="row align-items-center">
-                <div class="col">
-                    <div class="row align-items-start">
-                        <div class="col">
-                            <div class="card font-point12em animated fadeIn">
-                                <div class="card-header bold-title">Silicon Trail</div>
-                            </div>
-                            <div id="row1" class="card font-point12em invisibleElement">
-                                <div class="card-header bold-title">Silicon Trail is an adventure game about learning java on your way to making the next billion-dollar startup.</div>
-                            </div>
-                            <div id="row2" class="card font-point12em invisibleElement">
-                                
-                            </div>
-                            <div id="row3" class="card font-point12em invisibleElement">
-                                
-                            </div>
-                            <div class="row align-items-right" style="visibility: hidden;">
-                                Space
-                            </div>
-                            <div class="row align-items-right">
-                                <button type="button" class="col btn btn-next btn-primary" onclick="nextPanel()">Next</button>
-                            </div>
+            $("#theProgress").css("width", 100 * (completedCount / eventCount) + "%");
+            $(str).removeClass("invisibleElement").addClass('animated fadeIn visibleElement');
+            visibleIndex++;
+            if($(str).attr("progressLabel") != null){
+                $("#progressLabel").text($(str).attr("progressLabel"));
+            }
+            else{
+                $("#progressLabel").text("");
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container top-padding-md">
+        <div class="row align-items-center">
+            <div class="col">
+                <div class="row align-items-start">
+                    <div class="col">
+                        <div class="card font-point12em animated fadeIn">
+                            <div class="card-header bold-title">Silicon Trail</div>
                         </div>
+                        <div id="row1" class="card font-point12em invisibleElement" progressLabel="Hello Thing!">
+                            <div class="card-header bold-title">Silicon Trail is an adventure game about learning java on your way to making the next billion-dollar startup.</div>
+                        </div>
+                        <div id="row2" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">You and some friends have decided to leave your small town of Allentoona, PA for the dream of success in Silicon Valley with your new start-up, Giggle. Unfortunately, none of you really have any programming experience...</div>
+                        </div>
+                        <div id="row3" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Lucky for you, capitalism has assured that the industry has no real standards, so you can probably just learn Java on the way.</div>
+                        </div>
+                        <div id="row4" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">What are the names of people in your squad?</div>
+                            (Names here)
+                        </div>
+                        <div id="row5" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">What was your job before you started on this adventure?</div>
+                            (Choices here)
+                        </div>
+                        <div id="row6" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Programming Problem</div>
+                        </div>
+                        <div id="row7" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Story</div>
+                        </div>
+                        <div id="row8" class="card font-point12em invisibleElement" driving="true">
+                            <div class="card-header bold-title">Down the road</div>
+                        </div>
+                        <div id="row9" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Free Wi-Fi</div>
+                        </div>
+                        <div id="row10" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Gas Station</div>
+                        </div>
+                        <div id="row11" class="card font-point12em invisibleElement" driving="true">
+                            <div class="card-header bold-title">Down the road</div>
+                        </div>
+                        <div id="row12" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Obstacle</div>
+                        </div>
+                        <div id="row13" class="card font-point12em invisibleElement" driving="true">
+                            <div class="card-header bold-title">Down The Road</div>
+                        </div>
+                        <div id="row14" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Obstacle - Friends</div>
+                        </div>
+                        <div id="row15" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Free Wifi</div>
+                        </div>
+                        <div id="row16" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Obstacle</div>
+                        </div>
+                        <div id="row17" class="card font-point12em invisibleElement" driving="true">
+                            <div class="card-header bold-title">Down the Road</div>
+                        </div>
+                        <div id="row18" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Gas Station - Cleveland</div>
+                        </div>
+                        <div id="row19" class="card font-point12em invisibleElement" driving="true">
+                            <div class="card-header bold-title">Down the Road</div>
+                        </div>
+                        <div id="row20" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Obstacle</div>
+                        </div>
+                        <div id="row21" class="card font-point12em invisibleElement" driving="true">
+                            <div class="card-header bold-title">Down the Road</div>
+                        </div>
+                        <div id="row22" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">Free Wifi</div>
+                        </div>
+
+                        <div class="row align-items-right" style="visibility: hidden;">
+                            Space
+                        </div>
+                        <div class="row align-items-right">
+                            <button type="button" class="col btn btn-next btn-primary" onclick="nextPanel()">Next</button>
+                        </div>
+                        <div class="row align-items-right" style="visibility: hidden;">
+                            Space
+                        </div>
+                        <div class="card-header bold-title">Progress</div>
+                        <div class="progress md-progress card" style="height: 20px">
+                            <div id="theProgress" class="progress-bar" role="progressbar" style="width: 0%; height: 20px" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div id="progressLabel" class="card-header bold-title">X Miles to Cleveland</div>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
