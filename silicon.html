@@ -1,5 +1,6 @@
 <html>
-    <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,51 +22,367 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- Include the Polyfill -->
-    <script src="https://www.javapoly.com/javapoly.js"></script>
-    <!-- Write your Java code -->
+    <script src="https://www.javapoly.com/javapoly.js"></script> 
+    
     <script type="text/java">
-        package com.demo;
-            import com.javapoly.dom.Window;
+        
+    package com.javapoly.demo;
 
-            public class Greeter
+    import java.util.Arrays;
+    import java.lang.reflect.InvocationTargetException;
+    import java.net.URL;
+    import java.net.URLClassLoader;
+    import java.nio.file.Path;
+    import java.nio.file.FileSystems;
+    import java.io.File;
+    import java.io.IOException;
+
+    import javax.tools.JavaCompiler;
+    import javax.tools.ToolProvider;
+
+    public class HomepageDemo {
+
+      public static void compileAndRun(String scriptText) throws ClassNotFoundException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        final String className = "HelloWorld";
+        final String pkgName = "";
+        final String storageDir = ".";
+        final Path storageDirPath = FileSystems.getDefault().getPath(storageDir);
+        final String pkgDir = pkgName.replace(".", "/");
+        final Path pkgDirPath = storageDirPath.resolve(pkgDir);
+        final Path filePath = pkgDirPath.resolve(className + ".java");
+
+        try {
+          // Files.createDirectories(pkgDirPath);
+          pkgDirPath.toFile().mkdirs();
+          writeToFile(filePath, scriptText);
+
+          final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+          final String[] compileData = {"-d", storageDir, filePath.toAbsolutePath().toString()};
+          System.out.println("Compiling: " + Arrays.toString(compileData));
+
+          int result = compiler.run(null, null, null, compileData);
+          if (result == 0) {
+            System.out.println("Normal compilation.");
+            
+            URLClassLoader loader = new URLClassLoader(new URL[]{new File(storageDir).toURI().toURL()});
+            Class<?> cls = loader.loadClass("HelloWorld");
+            loader.close();
+            cls.getMethod("main", String[].class).invoke(null, (Object)new String[]{});
+          } else {
+            System.out.println("Compilation failed.");
+          }
+        } catch (final IOException e) {
+          e.printStackTrace();
+        }
+      }
+
+      private static void writeToFile(final Path path, final String data) throws IOException{
+        try(final java.io.FileWriter fileWriter = new java.io.FileWriter(path.toFile())) {
+          fileWriter.write(data);
+        }
+      }
+    }
+    </script>
+    <!-- Write your Java code -->
+    <script id="bigJava" type="text">
+        import com.javapoly.dom.Window;
+
+        public class HelloWorld
+        {
+            public static void main(String[] args)
             {
-                public static void sayHello(String name)
-                {
-                    Window.alert("Hello " + name + ", from Java!");
+                if(testIsPalindrome()){
+                    Window.alert("Correct!");
+                }
+                else{
+                    Window.alert("Incorrect");
                 }
             }
-        </script>
+
+            public static boolean isPalindrome(String word){
+                //$palindrome
+                return true;
+                //$palEnd
+            }
+            public static boolean testIsPalindrome(){
+                if(!isPalindrome("")){
+                    return false;
+                }
+
+                if(isPalindrome("abca")){
+                    return false;
+                }
+
+                if(isPalindrome("ba")){
+                    return false;
+                }
+
+                if(isPalindrome("aabaaa")){
+                    return false;
+                }
+
+                if(!isPalindrome("aaaaa")){
+                    return false;
+                }
+
+                if(!isPalindrome("abba")){
+                    return false;
+                }
+
+                if(!isPalindrome("aaaAa")){
+                    return false;
+                }
+
+                return true;
+            }
+        }
+    </script>
     <style>
         .invisibleElement {
-                display: none!important;
-            }
-            .visibleElement{
-                display:block;
-            }
-        </style>
+            display: none!important;
+        }
+
+        .visibleElement {
+            display: block;
+        }
+        
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
     <!-- Invoke your Java code from Javascript -->
-    <script type="text/javascript">
-        //com.demo.Greeter.sayHello("world");
+    <script id="someScript" type="text/javascript">   
+        var bigJava = document.getElementById("bigJava");
+        
         var eventCount = 10.0;
         var completedCount = 0.0;
 
         var visibleIndex = 1;
 
+        var pcName = "Alice";
+        var p1Name = "Bob";
+        var p2Name = "Chuck";
+        var p3Name = "Dan";
+        var p4Name = "Eve";
+
+        var p1Status = "Good";
+        var p2Status = "Good";
+        var p3Status = "Good";
+        var p4Status = "Good";
+
+        var cl = "";
+
+        var money = 100;
+        var gas = 20;
+        var energy = 20;
+        var snacks = 0;
+        
+        var strikes = 0;
+
+        function setStatus() {
+            $("#p1Status").text(p1Name + ": " + p1Status);
+            $("#p2Status").text(p2Name + ": " + p2Status);
+            $("#p3Status").text(p3Name + ": " + p3Status);
+            $("#p4Status").text(p4Name + ": " + p4Status);
+        }
+
+        function setStats() {
+            $("#moneyStat").text("Money: " + money);
+            $("#gasStat").text("Gas: " + gas);
+            $("#energyStat").text("Energy: " + energy);
+            $("#snacksStat").text("Snacks: " + snacks);
+        }
+
         function nextPanel() {
             var str = "#row" + visibleIndex;
             //alert(str);
-            if($(str).attr("driving")){
+            if ($(str).attr("driving")) {
                 completedCount += 1.0;
             }
+
+            if ($(str).attr("buttonLeave")) {
+                $("#theButton").addClass("invisibleElement");
+            }
+
             $("#theProgress").css("width", 100 * (completedCount / eventCount) + "%");
             $(str).removeClass("invisibleElement").addClass('animated fadeIn visibleElement');
             visibleIndex++;
-            if($(str).attr("progressLabel") != null){
+            if ($(str).attr("progressLabel") != null) {
                 $("#progressLabel").text($(str).attr("progressLabel"));
-            }
-            else{
+            } else {
                 $("#progressLabel").text("");
             }
+            
+            strikes = 0;
+            setStats();
+            setStatus();
+        }
+
+        function saveFriendsNames() {
+            if ($("#pcName").val() == null || $("#pcName").val().length == 0) {
+                $("#pcName").val(pcName);
+            }
+
+            if ($("#p1Name").val() == null || $("#p1Name").val().length == 0) {
+                $("#p1Name").val(p1Name);
+            }
+
+            if ($("#p2Name").val() == null || $("#p2Name").val().length == 0) {
+                $("#p2Name").val(p2Name);
+            }
+
+            if ($("#p3Name").val() == null || $("#p3Name").val().length == 0) {
+                $("#p3Name").val(p3Name);
+            }
+
+            if ($("#p4Name").val() == null || $("#p4Name").val().length == 0) {
+                $("#p4Name").val(p4Name);
+            }
+
+
+            pcName = $("#pcName").val();
+            p1Name = $("#p1Name").val();
+            p2Name = $("#p2Name").val();
+            p3Name = $("#p3Name").val();
+            p4Name = $("#p4Name").val();
+
+            $("#pcName").prop("disabled", true);
+            $("#p1Name").prop("disabled", true);
+            $("#p2Name").prop("disabled", true);
+            $("#p3Name").prop("disabled", true);
+            $("#p4Name").prop("disabled", true);
+
+            //alert(pcName + " " + p1Name + " " + p2Name + " " + p3Name + " " + p4Name);
+
+            $(".p1").text(p1Name);
+            $(".p2").text(p2Name);
+            $(".p3").text(p3Name);
+            $(".p4").text(p4Name);
+
+            $("#nameEntryButton").addClass("invisibleElement");
+
+            nextPanel();
+        }
+
+        function saveClass() {
+            cl = $("input[name='diff']:checked").val();
+            $("[name='diff']").prop("disabled", true);
+            
+            if(cl == "trust"){
+                money = 200;
+                energy = 40;
+            }
+            else if(cl == "school"){
+                money = 40;
+                energy = 10;
+            }
+            
+
+            $("#theButton").removeClass("invisibleElement").addClass('animated fadeIn visibleElement');
+
+            $("#theStats").removeClass("invisibleElement").addClass('animated fadeIn visibleElement');
+            $("#theProgressBlock").removeClass("invisibleElement").addClass('animated fadeIn');
+            $("#theStatus").removeClass("invisibleElement").addClass('animated fadeIn');
+
+            $("#classButton").addClass("invisibleElement");
+            nextPanel();
+        }
+        
+        function fail(){
+            $(".loader").addClass("invisibleElement");
+            $(".card").addClass("invisibleElement");
+            $("#failBlock").removeClass("invisibleElement").addClass('animated fadeIn visibleElement');
+        }
+        
+        function winPalindrome(){
+            $(".loader").addClass("invisibleElement");
+            $("#palindromeButton").addClass("invisibleElement");
+            $("#palindromeCode").prop("disabled", true);
+            nextPanel();
+        }
+        
+        function placePalindrome(){
+            var scr = bigJava.innerHTML;
+            var ind = scr.indexOf("//$palindrome") + "//$palindrome".length;
+            var ind2 = scr.indexOf("//$palEnd");
+            var pre = scr.substr(0, ind);
+            var post = scr.substr(ind2);
+            scr = pre + "\n" + $("#palindromeCode").val() + post;
+            bigJava.innerHTML = scr;
+        }
+        
+        function reload_js(src) {
+            $('script[src="' + src + '"]').remove();
+            $('<script>').attr('src', src).appendTo('head');
+        }
+        
+        function helloThing(){
+            alert("HI!");
+        }
+        
+        window.helloThing = helloThing;
+        
+        function compileIsPalindrome(){
+            
+            
+            $(".loader").removeClass("invisibleElement");
+            placePalindrome();
+            //alert(bigJava.innerHTML);
+            
+            JavaPoly.type('com.javapoly.demo.HomepageDemo').then(function(HomepageDemo){
+                HomepageDemo.compileAndRun(bigJava.innerHTML).then(function(HomepageDemo){
+                    $(".loader").addClass("invisibleElement");
+                });
+            });
+            
+            /*var promise = com.demo.Monolith.testIsPalindrome();
+            
+            promise.then(function(result) {
+              if(result){
+                  winPalindrome();
+              }else{
+                  strikes++;
+                  if(strikes >= 3){
+                      if(p4Status != "Muksed"){
+                          p4Status = "Muksed";
+                          $("#palindromeFail").text("Strike 3! " + p4Name + " has been kidnapped!");
+                          strikes = 0;
+                      }
+                      else if(p3Status != "Muksed"){
+                          p3Status = "Muksed";
+                          $("#palindromeFail").text("Strike 3! " + p3Name + " has been kidnapped!");
+                          strikes = 0;
+                      }
+                      else if(p2Status != "Dysentery"){
+                          p2Status = "Dysentery";
+                          $("#palindromeFail").text("In a shocking turn of events, " + p2Name + " has died of dysentery.");
+                          strikes = 0;
+                      }
+                      else if(p1Status != "Muksed"){
+                          p1Status = "Muksed";
+                          $("#palindromeFail").text("Strike 3! " + p1Name + " has been kidnapped!");
+                          fail();
+                      }
+                      setStatus();
+                  }
+                  else{
+                    $("#palindromeFail").text("Strike " + strikes + "!");
+                  }
+              }
+              $(".loader").addClass("invisibleElement");
+            }, function(err) {
+              alert(err); // Error: "It broke"
+            });*/
         }
     </script>
 </head>
@@ -79,8 +396,8 @@
                         <div class="card font-point12em animated fadeIn">
                             <div class="card-header bold-title">Silicon Trail</div>
                         </div>
-                        <div id="row1" class="card font-point12em invisibleElement" progressLabel="Hello Thing!">
-                            <div class="card-header bold-title">Silicon Trail is an adventure game about learning java on your way to making the next billion-dollar startup.</div>
+                        <div id="row1" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">The adventure begins...</div>
                         </div>
                         <div id="row2" class="card font-point12em invisibleElement">
                             <div class="card-header bold-title">You and some friends have decided to leave your small town of Allentoona, PA for the dream of success in Silicon Valley with your new start-up, Giggle. Unfortunately, none of you really have any programming experience...</div>
@@ -88,84 +405,127 @@
                         <div id="row3" class="card font-point12em invisibleElement">
                             <div class="card-header bold-title">Lucky for you, capitalism has assured that the industry has no real standards, so you can probably just learn Java on the way.</div>
                         </div>
-                        <div id="row4" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">What are the names of people in your squad?</div>
-                            (Names here)
+                        <div id="row4" class="card font-point12em invisibleElement" buttonLeave="true">
+                            <div class="card-header bold-title">What are your friends' names?</div>
+                            <div class="card-body form-group">
+                                <label for="pcName">You:</label>
+                                <input id="pcName" type="text" class="form-control">
+                                <br/>
+                                <label for="p1Name">1:</label>
+                                <input id="p1Name" type="text" class="form-control">
+                                <br/>
+                                <label for="p2Name">2:</label>
+                                <input id="p2Name" type="text" class="form-control">
+                                <br/>
+                                <label for="p3Name">3:</label>
+                                <input id="p3Name" type="text" class="form-control">
+                                <br/>
+                                <label for="p4Name">4:</label>
+                                <input id="p4Name" type="text" class="form-control">
+                                <br/><br/>
+                                <button id="nameEntryButton" type="button" class="col btn btn-next btn-primary" onclick="saveFriendsNames()">Continue</button>
+                            </div>
                         </div>
                         <div id="row5" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">What was your job before you started on this adventure?</div>
-                            (Choices here)
+                            <div class="card-header bold-title">How would you describe your background?</div>
+                            <div class="card-body form-group">
+                                <div class="radio">
+                                    <label><input type="radio" name="diff" value="trust" checked>Trust Fund Baby</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="diff" value="midlife">Midlife-Crisis Career Changer</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="diff" value="school">High School Coder</label>
+                                </div>
+                                <br/><br/>
+                                <button id="classButton" type="button" class="col btn btn-next btn-primary" onclick="saveClass()">Continue</button>
+                            </div>
                         </div>
-                        <div id="row6" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">Programming Problem</div>
+                        <div id="row6" class="card font-point12em invisibleElement" progressLabel="150 Miles to Cleveland">
+                            <div class="card-header bold-title">You,
+                                <nm class="p1"></nm>,
+                                <nm class="p2"></nm>,
+                                <nm class="p3"></nm>, and
+                                <nm class="p4"></nm> have finally left your parents' driveway! Your first stop is Cleveland!</div>
                         </div>
-                        <div id="row7" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">Story</div>
+                        <div id="row7" class="card font-point12em invisibleElement" driving="true" progressLabel="130 Miles to Cleveland">
+                            <div class="card-header bold-title">
+                                <nm class="p1"></nm> is having some trouble opening their maps app. It seems like it might be broken. <br/><br/> Luckily, out of nowhere appears none other than the ghost of famed Computer Science visionary, Grace Hopper! <br/><br/> Grace offers to help you. With her magic powers, you can use Computer Science to solve just about any problem...<br/><br/> She gives you a warning, though. If you write broken code too many times, Telsa CEO Leon Muks will kidnap your friends and force them to work for his company. Be careful.<br/><br/>
+                            </div>
+                            <div class="card-body">
+                                Write the following method to fix
+                                <nm class="p1"></nm>'s maps app (somehow). <br/><br/> isPalindrome is a method that takes in a string and returns whether that string is a palindrome.<br/><br/> 
+                                A palindrome is any word that is the same backwards as it is forwards - a single character and an empty string count as palindromes.
+                                <br/><br/>
+                                <code>public boolean isPalindrome(String word){</code><br/><br/>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="15" id="palindromeCode" style="background: #000000; color: #00FF00; font-family: monospace; text-decoration: none; width: 100%; height: 200px; border: none; padding: 10px; outline: none;"></textarea>
+                                </div>
+                                <code>}</code>
+                                <div id="palindromeFail"></div>
+                                <br/><div class="loader invisibleElement"></div><br/>
+                                <button id="palindromeButton" type="button" class="col btn btn-next btn-primary" onclick="compileIsPalindrome()">Compile + Run</button>
+                            </div>
                         </div>
                         <div id="row8" class="card font-point12em invisibleElement" driving="true">
-                            <div class="card-header bold-title">Down the road</div>
+                            <div class="card-header bold-title">With the maps app all fixed up, you continue on your journey!</div>
                         </div>
-                        <div id="row9" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">Free Wi-Fi</div>
+                        <div id="row9" class="card font-point12em invisibleElement" driving="true">
+                            <div class="card-header bold-title">This is the end of the demo - we hope you enjoyed it so far. For updates on the state of this project's development, check out https://github.com/PatHealy/SiliconTrail </div>
                         </div>
-                        <div id="row10" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">Gas Station</div>
+                        <div id="failBlock" class="card font-point12em invisibleElement">
+                            <div class="card-header bold-title">All of your friends have left you. I guess you'll be forced to give up on your dreams and move to Cleveland or something. I hear the rock-and-roll hall of fame is nice.</div>
                         </div>
-                        <div id="row11" class="card font-point12em invisibleElement" driving="true">
-                            <div class="card-header bold-title">Down the road</div>
-                        </div>
-                        <div id="row12" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">Obstacle</div>
-                        </div>
-                        <div id="row13" class="card font-point12em invisibleElement" driving="true">
-                            <div class="card-header bold-title">Down The Road</div>
-                        </div>
-                        <div id="row14" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">Obstacle - Friends</div>
-                        </div>
-                        <div id="row15" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">Free Wifi</div>
-                        </div>
-                        <div id="row16" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">Obstacle</div>
-                        </div>
-                        <div id="row17" class="card font-point12em invisibleElement" driving="true">
-                            <div class="card-header bold-title">Down the Road</div>
-                        </div>
-                        <div id="row18" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">Gas Station - Cleveland</div>
-                        </div>
-                        <div id="row19" class="card font-point12em invisibleElement" driving="true">
-                            <div class="card-header bold-title">Down the Road</div>
-                        </div>
-                        <div id="row20" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">Obstacle</div>
-                        </div>
-                        <div id="row21" class="card font-point12em invisibleElement" driving="true">
-                            <div class="card-header bold-title">Down the Road</div>
-                        </div>
-                        <div id="row22" class="card font-point12em invisibleElement">
-                            <div class="card-header bold-title">Free Wifi</div>
-                        </div>
-
                         <div class="row align-items-right" style="visibility: hidden;">
                             Space
                         </div>
                         <div class="row align-items-right">
-                            <button type="button" class="col btn btn-next btn-primary" onclick="nextPanel()">Next</button>
+                            <div class="col-sm"></div>
+                            <button id="theButton" type="button" class="col btn btn-next btn-primary" onclick="nextPanel()">></button>
+                            <div class="col-sm"></div>
                         </div>
                         <div class="row align-items-right" style="visibility: hidden;">
                             Space
                         </div>
-                        <div class="card-header bold-title">Progress</div>
-                        <div class="progress md-progress card" style="height: 20px">
-                            <div id="theProgress" class="progress-bar" role="progressbar" style="width: 0%; height: 20px" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="theProgressBlock" class="card invisibleElement">
+                            <div class="card-header bold-title">Progress</div>
+                            <div class="progress md-progress card" style="height: 20px">
+                                <div id="theProgress" class="progress-bar" role="progressbar" style="width: 0%; height: 20px" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div id="progressLabel" class="card-body bold-title"></div>
                         </div>
-                        <div id="progressLabel" class="card-header bold-title">X Miles to Cleveland</div>
+                        <div class="row align-items-right" style="visibility: hidden;">
+                            Space
+                        </div>
+                        <div id="theStats" class="card invisibleElement">
+                            <div class="card-header bold-title">Stats</div>
+                            <div class="card-body">
+                                <div id="moneyStat">Money: </div>
+                                <div id="gasStat">Gas: </div>
+                                <div id="snacksStat">Snacks: </div>
+                                <div id="energyStat">Energy: </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-right" style="visibility: hidden;">
+                            Space
+                        </div>
+                        <div id="theStatus" class="card invisibleElement">
+                            <div class="card-header bold-title">Party Status</div>
+                            <div class="card-body">
+                                <div id="p1Status"> </div>
+                                <div id="p2Status"> </div>
+                                <div id="p3Status"> </div>
+                                <div id="p4Status"> </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    </script>
 </body>
+
 </html>
